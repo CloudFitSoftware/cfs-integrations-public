@@ -1,0 +1,101 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "githubUsername": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Your github username"
+            }
+        },
+        "githubPersonalAccessToken": {
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+              "description": "Your github PAT.  Required to access the docker image."
+          }
+        },
+        "cfsBaseUrl": {
+            "type": "string",
+            "defaultValue": "https://api.cloudfitonline.com",
+            "metadata": {
+                "description": "The Base URL of CFS"
+            }
+        },
+        "cfsBlockId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The CFS Block Id you want to push status updates to"
+            }
+        },
+        "scenarioName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter a short name to describe the managed scenario"
+            }
+        },
+        "urlToMonitor": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter a URL endpoint to Monitor (i.e. https://google.com)"
+            }
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "containers": [
+                {
+                  "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
+                  "properties": {
+                    "image": "docker.pkg.github.com/cloudfitsoftware/cfs-url-monitor/azure-image:latest",
+                    "imageRegistryCredentials": [
+                      {
+                        "server": "github.com",
+                        "username": "[parameters('githubUsername')]",
+                        "password": "[parameters('githubPersonalAccessToken')]"
+                      }
+                    ],
+                    "ports": [],
+                    "resources": {
+                      "requests": {
+                        "cpu": 1,
+                        "memoryInGB": 1
+                      }
+                    },
+                    "environmentVariables": [
+                        {
+                            "name": "Url",
+                            "value": "[parameters('urlToMonitor')]"
+                        },
+                        {
+                            "name": "BlockId",
+                            "value": "[parameters('cfsBlockId')]"
+                        },
+                        {
+                          "name": "CfsBaseUrl",
+                          "value": "[parameters('cfsBaseUrl')]"
+                      }
+                      ]
+                  }
+                }
+              ],
+              "osType": "Linux",
+              "restartPolicy": "Always"
+            }
+          }
+    ],
+    "outputs": {
+    }
+  }
+  
