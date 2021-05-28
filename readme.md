@@ -20,7 +20,7 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
 1. Update the CFS protocol as needed for each work unit that would get created
 
-1. Deploy to your environment using the one-click deployment button:
+1. Select a manged scenario below to deploy to your environment
 
 ## Managed Scenarios
 
