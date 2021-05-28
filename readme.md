@@ -26,8 +26,6 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
 ### Url Monitor
 
-   - **Block Id** - The id of the block created in step 1
-   - **Scenario Name** - LOWERCASE ONLY - Used for naming resources deployed in the environment
-   - **Url To Monitor** - The url to send requests to and verify success status
+Sends requests to a specified during a specified second interval to check site availability 
 
-   [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsam2k13%2Furl-monitor%2Fmaster%2Ftemplate.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsam2k13%2Furl-monitor%2Fmaster%2Ftemplate.json)
