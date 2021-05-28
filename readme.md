@@ -28,4 +28,4 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
 Sends requests to a specified during a specified second interval to check site availability 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2FCloudFitSoftware%2Fcfs-integrations%2Fblob%2Fmaster%2Ftemplates%2Furl-monitor.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Furl-monitor.json)
