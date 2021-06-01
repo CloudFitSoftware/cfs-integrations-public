@@ -65,7 +65,7 @@
                 {
                   "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
                   "properties": {
-                    "image": "docker.pkg.github.com/cloudfitsoftware/cfs-url-monitor/azure-image:latest",
+                    "image": "cfsintegrations.azurecr.io/cfs-url-monitor:latest",
                     "ports": [],
                     "resources": {
                       "requests": {
