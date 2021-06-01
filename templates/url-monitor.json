@@ -92,7 +92,7 @@
               ],
               "imageRegistryCredentials": [
                 {
-                  "server": "[parameters('acrServer')]"
+                  "server": "[parameters('acrServer')]",
                   "username": "[parameters('acrAdminUsername')]",
                   "password": "[parameters('acrAdminPassword')]"
                 }
