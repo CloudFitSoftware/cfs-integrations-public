@@ -65,7 +65,7 @@
                 {
                   "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
                   "properties": {
-                    "image": "cfsintegrations.azurecr.io/cfs-url-monitor:latest",
+                    "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
                     "ports": [],
                     "resources": {
                       "requests": {
