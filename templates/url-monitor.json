@@ -2,18 +2,25 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "githubUsername": {
+        "acrServer": {
             "type": "string",
-            "defaultValue": "",
+            "defaultValue": "cfsintegrations.azurecr.io",
             "metadata": {
-                "description": "Your github username"
+                "description": "Your Azure Container registry server hosting the url-monitor image"
             }
         },
-        "githubPersonalAccessToken": {
+        "acrAdminUsername": {
+            "type": "string",
+            "defaultValue": "cfsintegrations",
+            "metadata": {
+                "description": "Your Azure Container registry admin username"
+            }
+        },
+        "acrAdminPassword": {
           "type": "string",
           "defaultValue": "",
           "metadata": {
-              "description": "Your github PAT.  Required to access the docker image."
+              "description": "Your Azure Container registry password username"
           }
         },
         "cfsBaseUrl": {
@@ -85,9 +92,9 @@
               ],
               "imageRegistryCredentials": [
                 {
-                  "server": "docker.pkg.github.com",
-                  "username": "[parameters('githubUsername')]",
-                  "password": "[parameters('githubPersonalAccessToken')]"
+                  "server": "[parameters('acrServer')]"
+                  "username": "[parameters('acrAdminUsername')]",
+                  "password": "[parameters('acrAdminPassword')]"
                 }
               ],
               "osType": "Linux",
