@@ -1,0 +1,132 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "acrServer": {
+          "type": "string",
+          "defaultValue": "cfsintegrations.azurecr.io",
+          "metadata": {
+              "description": "Your Azure Container registry server hosting the image"
+          }
+        },
+        "acrAdminUsername": {
+            "type": "string",
+            "defaultValue": "cfsintegrations",
+            "metadata": {
+                "description": "Your Azure Container registry admin username"
+            }
+        },
+        "acrAdminPassword": {
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+              "description": "Your Azure Container registry password username"
+          }
+        },
+        "cfsBaseUrl": {
+            "type": "string",
+            "defaultValue": "https://api.cloudfitonline.com",
+            "metadata": {
+                "description": "The Base URL of CFS"
+            }
+        },
+        "cfsBlockId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The CFS Block Id you want to push status updates to"
+            }
+        },
+        "scenarioName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter a short name to describe the managed scenario"
+            }
+        },
+        "appServiceResourceGroup": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter the name of the app service resource group"
+            }
+        },
+        "appServiceName": {
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+              "description": "Enter the name of the app service"
+          }
+        },
+        "deploymentSchedule": {
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+              "description": "CRON Expression denoting when the monitor should be expecting app service deployments. (i.e. '* 13,18, * * *' would be an app that deploys daily at 1 and 6 pm)"
+          }
+        },
+        "hoursUntilStale": {
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+              "description": "Number of hours to allow before notifying CFS the app serivce has gone stale."
+          } 
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "containers": [
+                {
+                  "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
+                  "properties": {
+                    "image": "cfsintegrations.azurecr.io/cfs-stale-app-service-monitor:b4380b6aca6ec531c73ef5247bd19bf8727ddcd1",
+                    "ports": [],
+                    "resources": {
+                      "requests": {
+                        "cpu": 1,
+                        "memoryInGB": 1
+                      }
+                    },
+                    "environmentVariables": [
+                        {
+                            "name": "AppServiceResourceGroup",
+                            "value": "[parameters('appServiceResourceGroup')]"
+                        },
+                        {
+                            "name": "AppServiceName",
+                            "value": "[parameters('appServiceName')]"
+                        },
+                        {
+                          "name": "DeploymentSchedule",
+                          "value": "[parameters('deploymentSchedule')]"
+                        },
+                        {
+                          "name": "HoursUntilStale",
+                          "value": "[parameters('hoursUntilStale')]"
+                        }
+                      ]
+                  }
+                }
+              ],
+              "imageRegistryCredentials": [
+                {
+                  "server": "[parameters('acrServer')]",
+                  "username": "[parameters('acrAdminUsername')]",
+                  "password": "[parameters('acrAdminPassword')]"
+                }
+              ],
+              "osType": "Linux",
+              "restartPolicy": "Always"
+            }
+          }
+    ],
+    "outputs": {
+    }
+}

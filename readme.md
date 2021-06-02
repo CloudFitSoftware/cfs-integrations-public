@@ -29,3 +29,9 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 Sends requests to a specified during a specified second interval to check site availability 
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Furl-monitor.json?test=3)
+
+### Stale App Service Monitor
+
+Check an app service to ensure it has the latest changes deployed to it.  Expects a CRON schedule and an "Hours until stale" parameter.
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fstale-app-service-monitor.json?test=3)
