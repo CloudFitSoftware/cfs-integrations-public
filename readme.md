@@ -32,6 +32,8 @@ Sends requests to a specified during a specified second interval to check site a
 
 ### Stale App Service Monitor
 
-Check an app service to ensure it has the latest changes deployed to it.  Expects a CRON schedule and an "Hours until stale" parameter.
+Provide your deployment schedule and this monitor will verify that your app service is recieving deployments on the expected schedule.
+
+NOTE: The azur container instance system-assigned identity will need be given **Reader permission role on the app service**
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fstale-app-service-monitor.json?test=9)
