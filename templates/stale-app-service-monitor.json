@@ -87,7 +87,7 @@
             "type": "Microsoft.ContainerInstance/containerGroups",
             "apiVersion": "2019-12-01",
             "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
-            "location": "[resourceGroup().location]",
+            "location": "[subscription().subscriptionId]",
             "identity": {
               "type": "SystemAssigned"
             },
