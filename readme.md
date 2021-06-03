@@ -8,15 +8,15 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
    - Once deployed, the block will be updated by the integration with one of 3 statuses:
 
-     - **Pass** - The url is returning a successful status
-     - **Fail** - The url is not returning a successful status
-     - **Misconfigured** - There is an internal error that is preventing a pass/fail status
+     - **Pass** - The managed scneario is passing
+     - **Fail** - The managed scneario is failing
+     - **Misconfigured** - There is an internal error with the cfs integration
 
 1. Create one or more rules in CFS to create a work unit in CFS based off of block status
 
    - Examples:
-     - On three 'Fail' statuses in a row, create a work unit in CFS
-     - On three 'Misconfigured' statuses in a row, create a work unit in CFS to fix the block
+     - On three 'Fail' statuses in a row, create a work unit in CFS to handle the managed scenario
+     - On three 'Misconfigured' statuses in a row, create a work unit in CFS to investigate the cfs integration
 
 1. Update the CFS protocol as needed for each work unit that would get created
 
