@@ -85,7 +85,7 @@
                         {
                           "name": "CfsBaseUrl",
                           "value": "[parameters('cfsBaseUrl')]"
-                      }
+                        }
                       ]
                   }
                 }

@@ -58,18 +58,25 @@
               "description": "Enter the name of the app service"
           }
         },
+        "validateSwap": {
+          "type": "bool",
+          "defaultValue": "",
+          "metadata": {
+              "description": "Value to denote whether or not we should check for a swap along with a deployment."
+          } 
+        },
         "deploymentSchedule": {
           "type": "string",
           "defaultValue": "",
           "metadata": {
-              "description": "CRON Expression denoting when the monitor should be expecting app service deployments. (i.e. '* 13,18, * * *' would be an app that deploys daily at 1 and 6 pm)"
+              "description": "CRON Expression representing the deployment schedule. (i.e. '* 13,18, * * *' would be an app that deploys daily at 1 and 6 pm)"
           }
         },
-        "hoursUntilStale": {
-          "type": "string",
+        "hoursStaleThreshold": {
+          "type": "int",
           "defaultValue": "",
           "metadata": {
-              "description": "Number of hours to allow before notifying CFS the app serivce has gone stale."
+              "description": "Number of hours to allow before notifying CFS the app serivce has gone stale based on the deployment schedule."
           } 
         }
     },
@@ -99,6 +106,18 @@
                     },
                     "environmentVariables": [
                         {
+                            "name": "BlockId",
+                            "value": "[parameters('cfsBlockId')]"
+                        },
+                        {
+                            "name": "CfsBaseUrl",
+                            "value": "[parameters('cfsBaseUrl')]"
+                        },
+                        {
+                            "name": "Subscription",
+                            "value":  "[resourceGroup().subscription]"
+                        },
+                        {
                             "name": "AppServiceResourceGroup",
                             "value": "[parameters('appServiceResourceGroup')]"
                         },
@@ -107,12 +126,16 @@
                             "value": "[parameters('appServiceName')]"
                         },
                         {
+                            "name": "ValidateSwap",
+                            "value": "[parameters('validateSwap')]"
+                        },
+                        {
                           "name": "DeploymentSchedule",
                           "value": "[parameters('deploymentSchedule')]"
                         },
                         {
-                          "name": "HoursUntilStale",
-                          "value": "[parameters('hoursUntilStale')]"
+                          "name": "StaleThreshold",
+                          "value": "[parameters('hoursStaleThreshold')]"
                         }
                       ]
                   }
