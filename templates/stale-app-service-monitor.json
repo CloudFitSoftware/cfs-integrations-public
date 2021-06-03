@@ -96,7 +96,7 @@
                 {
                   "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
                   "properties": {
-                    "image": "cfsintegrations.azurecr.io/cfs-stale-app-service-monitor:b4380b6aca6ec531c73ef5247bd19bf8727ddcd1",
+                    "image": "cfsintegrations.azurecr.io/cfs-stale-app-service-monitor:cf1c7fc67b46b685419a9f065f67c8ec89553735",
                     "ports": [],
                     "resources": {
                       "requests": {
