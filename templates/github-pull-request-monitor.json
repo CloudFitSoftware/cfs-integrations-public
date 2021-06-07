@@ -18,7 +18,6 @@
     },
     "acrAdminPassword": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "Your Azure Container registry password username"
       }
@@ -32,28 +31,24 @@
     },
     "cfsBlockId": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "The CFS Block Id you want to push status updates to"
       }
     },
     "scenarioName": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "Enter a short name to describe the managed scenario"
       }
     },
     "githubRepoOwner": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "Enter the owner of the repo (i.e. CloudFitSoftware)"
       }
     },
     "githubRepoName": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "Enter the url of the github repo to monitor (i.e. cfs-stale-app-service-monitor)"
       }
