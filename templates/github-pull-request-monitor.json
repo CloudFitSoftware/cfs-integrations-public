@@ -6,7 +6,7 @@
       "type": "string",
       "defaultValue": "cfsintegrations.azurecr.io",
       "metadata": {
-        "description": "Your Azure Container registry server hosting the image"
+        "description": "Your Azure Container registry server hosting the url-monitor image"
       }
     },
     "acrAdminUsername": {
@@ -44,39 +44,18 @@
         "description": "Enter a short name to describe the managed scenario"
       }
     },
-    "appServiceResourceGroup": {
+    "githubRepoUrl": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter the name of the app service resource group"
+        "description": "Enter the url of the github repo to monitor (i.e. https://github.com/CloudFitSoftware/cfs-stale-app-service-monitor)"
       }
     },
-    "appServiceName": {
+    "githubPersonalAccessToken": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter the name of the app service"
-      }
-    },
-    "validateSwap": {
-      "type": "bool",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Value to denote whether or not we should check for a swap along with a deployment."
-      }
-    },
-    "deploymentSchedule": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "CRON Expression representing the deployment schedule. (i.e. '* 13,18, * * *' would be an app that deploys daily at 1 and 6 pm)"
-      }
-    },
-    "hoursStaleThreshold": {
-      "type": "int",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Number of hours to allow before notifying CFS the app serivce has gone stale based on the deployment schedule."
+          "description": "Your github PAT (Optional, required if private repo)"
       }
     }
   },
@@ -85,17 +64,14 @@
     {
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
-      "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
+      "name": "[concat('cfs-github-pr-monitor-', parameters('scenarioName'))]",
       "location": "[resourceGroup().location]",
-      "identity": {
-        "type": "SystemAssigned"
-      },
       "properties": {
         "containers": [
           {
-            "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
+            "name": "[concat('cfs-github-pr-monitor-', parameters('scenarioName'))]",
             "properties": {
-              "image": "cfsintegrations.azurecr.io/cfs-stale-app-service-monitor:6841da9d95f9b1a24d0c1b8b59db6843032ff257",
+              "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
               "ports": [],
               "resources": {
                 "requests": {
@@ -105,36 +81,20 @@
               },
               "environmentVariables": [
                 {
+                  "name": "GithubRepoUrl",
+                  "value": "[parameters('githubRepoUrl')]"
+                },
+                {
+                  "name": "GithubPAT",
+                  "value": "[parameters('githubPersonalAccessToken')]"
+                },
+                {
                   "name": "BlockId",
                   "value": "[parameters('cfsBlockId')]"
                 },
                 {
                   "name": "CfsBaseUrl",
                   "value": "[parameters('cfsBaseUrl')]"
-                },
-                {
-                  "name": "Subscription",
-                  "value": "[subscription().subscriptionId]"
-                },
-                {
-                  "name": "AppServiceResourceGroup",
-                  "value": "[parameters('appServiceResourceGroup')]"
-                },
-                {
-                  "name": "AppServiceName",
-                  "value": "[parameters('appServiceName')]"
-                },
-                {
-                  "name": "ValidateSwap",
-                  "value": "[parameters('validateSwap')]"
-                },
-                {
-                  "name": "DeploymentSchedule",
-                  "value": "[parameters('deploymentSchedule')]"
-                },
-                {
-                  "name": "StaleThreshold",
-                  "value": "[parameters('hoursStaleThreshold')]"
                 }
               ]
             }

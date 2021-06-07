@@ -1,108 +1,105 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "acrServer": {
-            "type": "string",
-            "defaultValue": "cfsintegrations.azurecr.io",
-            "metadata": {
-                "description": "Your Azure Container registry server hosting the url-monitor image"
-            }
-        },
-        "acrAdminUsername": {
-            "type": "string",
-            "defaultValue": "cfsintegrations",
-            "metadata": {
-                "description": "Your Azure Container registry admin username"
-            }
-        },
-        "acrAdminPassword": {
-          "type": "string",
-          "defaultValue": "",
-          "metadata": {
-              "description": "Your Azure Container registry password username"
-          }
-        },
-        "cfsBaseUrl": {
-            "type": "string",
-            "defaultValue": "https://api.cloudfitonline.com",
-            "metadata": {
-                "description": "The Base URL of CFS"
-            }
-        },
-        "cfsBlockId": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "The CFS Block Id you want to push status updates to"
-            }
-        },
-        "scenarioName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Enter a short name to describe the managed scenario"
-            }
-        },
-        "urlToMonitor": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Enter a URL endpoint to Monitor (i.e. https://google.com)"
-            }
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrServer": {
+      "type": "string",
+      "defaultValue": "cfsintegrations.azurecr.io",
+      "metadata": {
+        "description": "Your Azure Container registry server hosting the url-monitor image"
+      }
     },
-    "variables": {
+    "acrAdminUsername": {
+      "type": "string",
+      "defaultValue": "cfsintegrations",
+      "metadata": {
+        "description": "Your Azure Container registry admin username"
+      }
     },
-    "resources": [
-        {
-            "type": "Microsoft.ContainerInstance/containerGroups",
-            "apiVersion": "2019-12-01",
-            "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-              "containers": [
-                {
-                  "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
-                  "properties": {
-                    "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
-                    "ports": [],
-                    "resources": {
-                      "requests": {
-                        "cpu": 1,
-                        "memoryInGB": 1
-                      }
-                    },
-                    "environmentVariables": [
-                        {
-                            "name": "Url",
-                            "value": "[parameters('urlToMonitor')]"
-                        },
-                        {
-                            "name": "BlockId",
-                            "value": "[parameters('cfsBlockId')]"
-                        },
-                        {
-                          "name": "CfsBaseUrl",
-                          "value": "[parameters('cfsBaseUrl')]"
-                        }
-                      ]
-                  }
-                }
-              ],
-              "imageRegistryCredentials": [
-                {
-                  "server": "[parameters('acrServer')]",
-                  "username": "[parameters('acrAdminUsername')]",
-                  "password": "[parameters('acrAdminPassword')]"
-                }
-              ],
-              "osType": "Linux",
-              "restartPolicy": "Always"
-            }
-          }
-    ],
-    "outputs": {
+    "acrAdminPassword": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Your Azure Container registry password username"
+      }
+    },
+    "cfsBaseUrl": {
+      "type": "string",
+      "defaultValue": "https://api.cloudfitonline.com",
+      "metadata": {
+        "description": "The Base URL of CFS"
+      }
+    },
+    "cfsBlockId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The CFS Block Id you want to push status updates to"
+      }
+    },
+    "scenarioName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Enter a short name to describe the managed scenario"
+      }
+    },
+    "urlToMonitor": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Enter a URL endpoint to Monitor (i.e. https://google.com)"
+      }
     }
-  }
-  
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
+            "properties": {
+              "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
+              "ports": [],
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGB": 1
+                }
+              },
+              "environmentVariables": [
+                {
+                  "name": "Url",
+                  "value": "[parameters('urlToMonitor')]"
+                },
+                {
+                  "name": "BlockId",
+                  "value": "[parameters('cfsBlockId')]"
+                },
+                {
+                  "name": "CfsBaseUrl",
+                  "value": "[parameters('cfsBaseUrl')]"
+                }
+              ]
+            }
+          }
+        ],
+        "imageRegistryCredentials": [
+          {
+            "server": "[parameters('acrServer')]",
+            "username": "[parameters('acrAdminUsername')]",
+            "password": "[parameters('acrAdminPassword')]"
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "Always"
+      }
+    }
+  ],
+  "outputs": {}
+}
