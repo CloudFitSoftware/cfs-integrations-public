@@ -27,7 +27,7 @@
       "type": "string",
       "defaultValue": "https://api.cloudfitonline.com",
       "metadata": {
-        "description": "The Base URL of CFS"
+        "description": "The Base URL of CFS (no ending slash)"
       }
     },
     "cfsBlockId": {
@@ -44,11 +44,32 @@
         "description": "Enter a short name to describe the managed scenario"
       }
     },
-    "githubRepoUrl": {
+    "githubRepoOwner": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter the url of the github repo to monitor (i.e. https://github.com/CloudFitSoftware/cfs-stale-app-service-monitor)"
+        "description": "Enter the owner of the repo (i.e. CloudFitSoftware)"
+      }
+    },
+    "githubRepoName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Enter the url of the github repo to monitor (i.e. cfs-stale-app-service-monitor)"
+      }
+    },
+    "minutesBetweenRuns": {
+      "type": "int",
+      "defaultValue": 5,
+      "metadata": {
+          "description": "Time in minutes between runs."
+      }
+    },
+    "minutesBeforeStale": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+          "description": "Time in minutes before a pull request is considered stale."
       }
     },
     "githubPersonalAccessToken": {
@@ -81,20 +102,32 @@
               },
               "environmentVariables": [
                 {
-                  "name": "GithubRepoUrl",
-                  "value": "[parameters('githubRepoUrl')]"
+                  "name": "GITHUB_REPO_OWNER",
+                  "value": "[parameters('githubRepoOwner')]"
                 },
                 {
-                  "name": "GithubPAT",
+                  "name": "GITHUB_REPO_NAME",
+                  "value": "[parameters('githubRepoName')]"
+                },
+                {
+                  "name": "GITHUB_PAT",
                   "value": "[parameters('githubPersonalAccessToken')]"
                 },
                 {
-                  "name": "BlockId",
+                  "name": "CFS_BASE_URL",
+                  "value": "[parameters('cfsBaseUrl')]"
+                },
+                {
+                  "name": "CFS_BLOCK_ID",
                   "value": "[parameters('cfsBlockId')]"
                 },
                 {
-                  "name": "CfsBaseUrl",
-                  "value": "[parameters('cfsBaseUrl')]"
+                  "name": "MINUTES_BETWEEN_RUNS",
+                  "value": "[parameters('minutesBetweenRuns')]"
+                },
+                {
+                  "name": "MINUTES_BEFORE_STALE",
+                  "value": "[parameters('minutesBeforeStale')]"
                 }
               ]
             }
