@@ -24,8 +24,7 @@
       }
     },
     "urlToMonitor": {
-      "type": "string",
-      "defaultValue": "",
+      "type": "array",
       "metadata": {
         "description": "Enter a URL endpoint to Monitor (i.e. https://google.com)"
       }
