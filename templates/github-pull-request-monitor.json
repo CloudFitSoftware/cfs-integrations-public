@@ -48,7 +48,7 @@
       }
     },
     "githubPersonalAccessToken": {
-      "type": "string",
+      "type": "securestring",
       "defaultValue": "",
       "metadata": {
           "description": "Your github PAT (Optional, required if private repo)"
@@ -86,7 +86,7 @@
                 },
                 {
                   "name": "GITHUB_PAT",
-                  "value": "[parameters('githubPersonalAccessToken')]"
+                  "secureValue": "[parameters('githubPersonalAccessToken')]"
                 },
                 {
                   "name": "CFS_BASE_URL",
