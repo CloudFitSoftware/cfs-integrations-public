@@ -28,7 +28,7 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
 Sends requests to a specified url to check site availability
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Furl-monitor.json?test=3)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Furl-monitor.json?version=1)
 
 ### Stale App Service Monitor
 
@@ -36,10 +36,10 @@ Provide your deployment schedule and this monitor will verify that your app serv
 
 NOTE: The container instance system-assigned identity will need be given the **Reader permission role on the app service**
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fstale-app-service-monitor.json?test=9)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fstale-app-service-monitor.json?version=1)
 
 ### Github Pull Request Monitor
 
 Checks if there are pull requests older than a specified age in Github.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fgithub-pull-request-monitor.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fgithub-pull-request-monitor.json?version=1)

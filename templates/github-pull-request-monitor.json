@@ -2,26 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "acrServer": {
-      "type": "string",
-      "defaultValue": "cfsintegrations.azurecr.io",
-      "metadata": {
-        "description": "Your Azure Container registry server hosting the url-monitor image"
-      }
-    },
-    "acrAdminUsername": {
-      "type": "string",
-      "defaultValue": "cfsintegrations",
-      "metadata": {
-        "description": "Your Azure Container registry admin username"
-      }
-    },
-    "acrAdminPassword": {
-      "type": "string",
-      "metadata": {
-        "description": "Your Azure Container registry password username"
-      }
-    },
     "cfsBaseUrl": {
       "type": "string",
       "defaultValue": "https://api.cloudfitonline.com",
@@ -87,7 +67,7 @@
           {
             "name": "[concat('cfs-github-pr-monitor-', parameters('scenarioName'))]",
             "properties": {
-              "image": "cfsintegrations.azurecr.io/cfs-github-pr-monitor:latest",
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-github-pr-monitor:latest",
               "ports": [],
               "resources": {
                 "requests": {
@@ -126,13 +106,6 @@
                 }
               ]
             }
-          }
-        ],
-        "imageRegistryCredentials": [
-          {
-            "server": "[parameters('acrServer')]",
-            "username": "[parameters('acrAdminUsername')]",
-            "password": "[parameters('acrAdminPassword')]"
           }
         ],
         "osType": "Linux",

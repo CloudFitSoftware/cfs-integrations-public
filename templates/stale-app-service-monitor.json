@@ -2,27 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "acrServer": {
-      "type": "string",
-      "defaultValue": "cfsintegrations.azurecr.io",
-      "metadata": {
-        "description": "Your Azure Container registry server hosting the image"
-      }
-    },
-    "acrAdminUsername": {
-      "type": "string",
-      "defaultValue": "cfsintegrations",
-      "metadata": {
-        "description": "Your Azure Container registry admin username"
-      }
-    },
-    "acrAdminPassword": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Your Azure Container registry password username"
-      }
-    },
     "cfsBaseUrl": {
       "type": "string",
       "defaultValue": "https://api.cloudfitonline.com",
@@ -60,7 +39,7 @@
     },
     "validateSwap": {
       "type": "bool",
-      "defaultValue": "",
+      "defaultValue": false,
       "metadata": {
         "description": "Value to denote whether or not we should check for a swap along with a deployment."
       }
@@ -74,7 +53,7 @@
     },
     "hoursStaleThreshold": {
       "type": "int",
-      "defaultValue": "",
+      "defaultValue": 2,
       "metadata": {
         "description": "Number of hours to allow before notifying CFS the app serivce has gone stale based on the deployment schedule."
       }
@@ -95,7 +74,7 @@
           {
             "name": "[concat('cfs-stale-app-service-monitor-', parameters('scenarioName'))]",
             "properties": {
-              "image": "cfsintegrations.azurecr.io/cfs-stale-app-service-monitor:6841da9d95f9b1a24d0c1b8b59db6843032ff257",
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-stale-app-service-monitor:latest",
               "ports": [],
               "resources": {
                 "requests": {
@@ -138,13 +117,6 @@
                 }
               ]
             }
-          }
-        ],
-        "imageRegistryCredentials": [
-          {
-            "server": "[parameters('acrServer')]",
-            "username": "[parameters('acrAdminUsername')]",
-            "password": "[parameters('acrAdminPassword')]"
           }
         ],
         "osType": "Linux",
