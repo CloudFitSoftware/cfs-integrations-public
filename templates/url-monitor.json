@@ -2,6 +2,27 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "acrServer": {
+      "type": "string",
+      "defaultValue": "cfsintegrations.azurecr.io",
+      "metadata": {
+        "description": "Your Azure Container registry server hosting the url-monitor image"
+      }
+    },
+    "acrAdminUsername": {
+      "type": "string",
+      "defaultValue": "cfsintegrations",
+      "metadata": {
+        "description": "Your Azure Container registry admin username"
+      }
+    },
+    "acrAdminPassword": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Your Azure Container registry password username"
+      }
+    },
     "cfsBaseUrl": {
       "type": "string",
       "defaultValue": "https://api.cloudfitonline.com",
@@ -43,7 +64,7 @@
           {
             "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
             "properties": {
-              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-url-monitor:latest",
+              "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
               "ports": [],
               "resources": {
                 "requests": {
@@ -53,19 +74,26 @@
               },
               "environmentVariables": [
                 {
-                  "name": "Url",
+                  "name": "URL",
                   "value": "[parameters('urlToMonitor')]"
                 },
                 {
-                  "name": "BlockId",
+                  "name": "CFS_BLOCK_ID",
                   "value": "[parameters('cfsBlockId')]"
                 },
                 {
-                  "name": "CfsBaseUrl",
+                  "name": "CFS_BASE_URL",
                   "value": "[parameters('cfsBaseUrl')]"
                 }
               ]
             }
+          }
+        ],
+        "imageRegistryCredentials": [
+          {
+            "server": "[parameters('acrServer')]",
+            "username": "[parameters('acrAdminUsername')]",
+            "password": "[parameters('acrAdminPassword')]"
           }
         ],
         "osType": "Linux",

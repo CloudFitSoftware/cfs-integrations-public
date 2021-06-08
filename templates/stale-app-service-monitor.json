@@ -84,35 +84,35 @@
               },
               "environmentVariables": [
                 {
-                  "name": "BlockId",
+                  "name": "CFS_BLOCK_ID",
                   "value": "[parameters('cfsBlockId')]"
                 },
                 {
-                  "name": "CfsBaseUrl",
+                  "name": "CFS_BASE_URL",
                   "value": "[parameters('cfsBaseUrl')]"
                 },
                 {
-                  "name": "Subscription",
+                  "name": "APP_SERVICE_SUBSCRIPTION",
                   "value": "[subscription().subscriptionId]"
                 },
                 {
-                  "name": "AppServiceResourceGroup",
+                  "name": "APP_SERVICE_RESOURCE_GROUP",
                   "value": "[parameters('appServiceResourceGroup')]"
                 },
                 {
-                  "name": "AppServiceName",
+                  "name": "APP_SERVICE_NAME",
                   "value": "[parameters('appServiceName')]"
                 },
                 {
-                  "name": "ValidateSwap",
+                  "name": "VALIDATE_SWAP",
                   "value": "[parameters('validateSwap')]"
                 },
                 {
-                  "name": "DeploymentSchedule",
+                  "name": "DEPLOYMENT_SCHEDULE",
                   "value": "[parameters('deploymentSchedule')]"
                 },
                 {
-                  "name": "StaleThreshold",
+                  "name": "STALE_THRESHOLD",
                   "value": "[parameters('hoursStaleThreshold')]"
                 }
               ]
