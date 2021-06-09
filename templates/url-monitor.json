@@ -2,27 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "acrServer": {
-      "type": "string",
-      "defaultValue": "cfsintegrations.azurecr.io",
-      "metadata": {
-        "description": "Your Azure Container registry server hosting the url-monitor image"
-      }
-    },
-    "acrAdminUsername": {
-      "type": "string",
-      "defaultValue": "cfsintegrations",
-      "metadata": {
-        "description": "Your Azure Container registry admin username"
-      }
-    },
-    "acrAdminPassword": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Your Azure Container registry password username"
-      }
-    },
     "cfsBaseUrl": {
       "type": "string",
       "defaultValue": "https://api.cloudfitonline.com",
@@ -30,25 +9,16 @@
         "description": "The Base URL of CFS"
       }
     },
-    "cfsBlockId": {
+    "cfsBlockToUrlMapping": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
-        "description": "The CFS Block Id you want to push status updates to"
+        "description": "Mapping of Block Ids and Url's to test (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com])"
       }
     },
     "scenarioName": {
       "type": "string",
-      "defaultValue": "",
       "metadata": {
         "description": "Enter a short name to describe the managed scenario"
-      }
-    },
-    "urlToMonitor": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Enter a URL endpoint to Monitor (i.e. https://google.com)"
       }
     }
   },
@@ -64,7 +34,7 @@
           {
             "name": "[concat('cfs-urlmonitor-', parameters('scenarioName'))]",
             "properties": {
-              "image": "cfsintegrations.azurecr.io/cfs-url-monitor:7021831736ba9fc442e303791ac81909340e20c6",
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-url-monitor:latest",
               "ports": [],
               "resources": {
                 "requests": {
@@ -74,12 +44,8 @@
               },
               "environmentVariables": [
                 {
-                  "name": "URL",
-                  "value": "[parameters('urlToMonitor')]"
-                },
-                {
-                  "name": "CFS_BLOCK_ID",
-                  "value": "[parameters('cfsBlockId')]"
+                  "name": "CFS_BLOCK_MAPPING",
+                  "value": "[parameters('cfsBlockToUrlMapping')]"
                 },
                 {
                   "name": "CFS_BASE_URL",
@@ -87,13 +53,6 @@
                 }
               ]
             }
-          }
-        ],
-        "imageRegistryCredentials": [
-          {
-            "server": "[parameters('acrServer')]",
-            "username": "[parameters('acrAdminUsername')]",
-            "password": "[parameters('acrAdminPassword')]"
           }
         ],
         "osType": "Linux",
