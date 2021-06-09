@@ -24,22 +24,16 @@ A CFS integration is a "plug and play" piece of code that can be easily deployed
 
 ## Managed Scenarios
 
-### Url Monitor
+### Url Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-url-monitor)
 
 Sends requests to a specified url to check site availability
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Furl-monitor.json)
-
-### Stale App Service Monitor
+### Stale App Service Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-stale-app-service-monitor)
 
 Provide your deployment schedule and this monitor will verify that your app service is recieving deployments on the expected schedule.
 
 NOTE: The container instance system-assigned identity will need be given the **Reader permission role on the app service**
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fstale-app-service-monitor.json)
-
-### Github Pull Request Monitor
+### Github Pull Request Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-github-pr-monitor)
 
 Checks if there are pull requests older than a specified age in Github.
-
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations%2Fmaster%2Ftemplates%2Fgithub-pull-request-monitor.json)
