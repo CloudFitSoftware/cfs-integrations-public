@@ -12,7 +12,7 @@
     "cfsBlockToUrlMapping": {
       "type": "string",
       "metadata": {
-        "description": "Mapping of Block Ids and Url's to test (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com])"
+        "description": "Mapping of Block Ids and Url's to test (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com)"
       }
     },
     "scenarioName": {
