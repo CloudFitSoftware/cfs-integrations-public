@@ -20,6 +20,13 @@
       "metadata": {
         "description": "Enter a short name to describe the managed scenario"
       }
+    },
+    "secondsBetweenRuns": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "How many seconds to wait between runs"
+      }
     }
   },
   "variables": {},
@@ -50,6 +57,10 @@
                 {
                   "name": "CFS_BASE_URL",
                   "value": "[parameters('cfsBaseUrl')]"
+                },
+                {
+                  "name": "SECONDS_BETWEEN_RUNS",
+                  "value": "[parameters('secondsBetweenRuns')]"
                 }
               ]
             }
