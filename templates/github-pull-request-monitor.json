@@ -85,7 +85,7 @@
                   "value": "[parameters('githubRepoName')]"
                 },
                 {
-                  "name": "GITHUB_PAT",
+                  "name": "GITHUB_PERSONAL_ACCESS_TOKEN",
                   "secureValue": "[parameters('githubPersonalAccessToken')]"
                 },
                 {
