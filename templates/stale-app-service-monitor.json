@@ -9,13 +9,6 @@
         "description": "The Base URL of CFS"
       }
     },
-    "cfsBlockId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The CFS Block Id you want to push status updates to"
-      }
-    },
     "scenarioName": {
       "type": "string",
       "defaultValue": "",
@@ -23,18 +16,11 @@
         "description": "Enter a short name to describe the managed scenario"
       }
     },
-    "appServiceResourceGroup": {
+    "cfsBlockToAppServiceMapping": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter the name of the app service resource group"
-      }
-    },
-    "appServiceName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Enter the name of the app service"
+        "description": "Mapping of Block Ids and App Services to check (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|resource_group_name|app_service_name,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|resource_group_name|app_service_name)"
       }
     },
     "validateSwap": {
@@ -96,12 +82,8 @@
                   "value": "[subscription().subscriptionId]"
                 },
                 {
-                  "name": "APP_SERVICE_RESOURCE_GROUP",
-                  "value": "[parameters('appServiceResourceGroup')]"
-                },
-                {
-                  "name": "APP_SERVICE_NAME",
-                  "value": "[parameters('appServiceName')]"
+                  "name": "BLOCK_TO_APP_SERVICE_MAPPING",
+                  "value": "[parameters('cfsBlockToAppServiceMapping')]"
                 },
                 {
                   "name": "VALIDATE_SWAP",
