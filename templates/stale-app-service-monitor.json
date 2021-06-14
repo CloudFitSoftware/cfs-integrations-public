@@ -70,10 +70,6 @@
               },
               "environmentVariables": [
                 {
-                  "name": "CFS_BLOCK_ID",
-                  "value": "[parameters('cfsBlockId')]"
-                },
-                {
                   "name": "CFS_BASE_URL",
                   "value": "[parameters('cfsBaseUrl')]"
                 },
