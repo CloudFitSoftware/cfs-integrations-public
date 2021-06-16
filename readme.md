@@ -32,8 +32,6 @@ Sends requests to a specified url to check site availability
 
 Provide your deployment schedule and this monitor will verify that your app service is recieving deployments on the expected schedule.
 
-NOTE: The container instance system-assigned identity will need be given the **Reader permission role on the app service**
-
 ### Github Pull Request Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-github-pr-monitor)
 
 Checks if there are pull requests older than a specified age in Github.
