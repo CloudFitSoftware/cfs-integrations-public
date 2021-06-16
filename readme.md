@@ -37,3 +37,7 @@ NOTE: The container instance system-assigned identity will need be given the **R
 ### Github Pull Request Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-github-pr-monitor)
 
 Checks if there are pull requests older than a specified age in Github.
+
+### SQL Data Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-sql-data-monitor)
+
+Runs SQL Scripts that query for bad data
