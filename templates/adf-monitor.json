@@ -1,0 +1,100 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cfsBaseUrl": {
+      "type": "string",
+      "defaultValue": "https://api.cloudfitonline.com",
+      "metadata": {
+        "description": "The Base URL of CFS"
+      }
+    },
+    "scenarioName": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter a short name to describe the managed scenario"
+      }
+    },
+    "adfName": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the name of the Data Factory to monitor in this subscription"
+      }
+    },
+    "adfResourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Enter the name of the resource group the Data Factory is part of"
+      }
+    },
+    "cfsBlockToPipelineMapping": {
+      "type": "string",
+      "metadata": {
+        "description": "Mapping of Block Ids, Pipelines and timeouts for testing adf pipelines (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|Job1|10,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|Job2|30)"
+      }
+    },
+    "secondsBetweenRuns": {
+      "type": "int",
+      "defaultValue": 30,
+      "minValue": 30,
+      "metadata": {
+        "description": "How many seconds to wait between runs"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "name": "[concat('cfs-adfmonitor-', parameters('scenarioName'))]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "[concat('cfs-adfmonitor-', parameters('scenarioName'))]",
+            "properties": {
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-adf-monitor:latest",
+              "ports": [],
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGB": 1
+                }
+              },
+              "environmentVariables": [
+                {
+                  "name": "CFSADFMONITOR_PIPELINES",
+                  "value": "[parameters('cfsBlockToPipelineMapping')]"
+                },
+                {
+                  "name": "CFSADFMONITOR_RESOURCE_GROUP",
+                  "value": "[parameters('adfResourceGroupName')]"
+                },
+                {
+                  "name": "CFSADFMONITOR_DATAFACTORY_NAME",
+                  "value": "[parameters('adfName')]"
+                },
+                {
+                  "name": "CFSADFMONITOR_SUBSCRIPTION_ID",
+                  "value": "[subscription().subscriptionId]"
+                },
+                {
+                  "name": "CFSADFMONITOR_CFS_BASE_URL",
+                  "value": "[parameters('cfsBaseUrl')]"
+                },
+                {
+                  "name": "CFSADFMONITOR_SECONDS_BETWEEN_RUNS",
+                  "value": "[parameters('secondsBetweenRuns')]"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "Always"
+      }
+    }
+  ],
+  "outputs": {}
+}
