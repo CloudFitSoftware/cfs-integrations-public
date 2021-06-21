@@ -39,3 +39,7 @@ Checks if there are pull requests older than a specified age in Github.
 ### SQL Data Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-sql-data-monitor)
 
 Runs SQL Scripts that query for bad data
+
+### Azure Data Factory (ADF) Pipeline Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-adf-monitor)
+
+Monitors pipeline ensuring pipeline ran successfully in the predetermined time frame. 
