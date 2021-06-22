@@ -9,13 +9,6 @@
         "description": "The Base URL of CFS"
       }
     },
-    "cfsBlockId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The CFS Block Id you want to push status updates to"
-      }
-    },
     "scenarioName": {
       "type": "string",
       "defaultValue": "",
@@ -23,25 +16,18 @@
         "description": "Enter a short name to describe the managed scenario"
       }
     },
-    "appServiceResourceGroup": {
+    "cfsBlockToAppServiceMapping": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter the name of the app service resource group"
-      }
-    },
-    "appServiceName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Enter the name of the app service"
+        "description": "Mapping of Block Ids and App Services to check (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|resource_group_name|app_service_name,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|resource_group_name|app_service_name)"
       }
     },
     "validateSwap": {
       "type": "bool",
       "defaultValue": false,
       "metadata": {
-        "description": "Value to denote whether or not we should check for a swap along with a deployment."
+        "description": "Value to denote whether or not we should check for a swap along with a deployment"
       }
     },
     "deploymentSchedule": {
@@ -55,7 +41,14 @@
       "type": "int",
       "defaultValue": 2,
       "metadata": {
-        "description": "Number of hours to allow before notifying CFS the app serivce has gone stale based on the deployment schedule."
+        "description": "Number of hours to allow before notifying CFS the app serivce has gone stale based on the deployment schedule"
+      }
+    },
+    "secondsBetweenRuns": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "Number of seconds to wait between each check and how frequent to send updates to CFS"
       }
     }
   },
@@ -84,10 +77,6 @@
               },
               "environmentVariables": [
                 {
-                  "name": "CFS_BLOCK_ID",
-                  "value": "[parameters('cfsBlockId')]"
-                },
-                {
                   "name": "CFS_BASE_URL",
                   "value": "[parameters('cfsBaseUrl')]"
                 },
@@ -96,12 +85,8 @@
                   "value": "[subscription().subscriptionId]"
                 },
                 {
-                  "name": "APP_SERVICE_RESOURCE_GROUP",
-                  "value": "[parameters('appServiceResourceGroup')]"
-                },
-                {
-                  "name": "APP_SERVICE_NAME",
-                  "value": "[parameters('appServiceName')]"
+                  "name": "BLOCK_TO_APP_SERVICE_MAPPING",
+                  "value": "[parameters('cfsBlockToAppServiceMapping')]"
                 },
                 {
                   "name": "VALIDATE_SWAP",
@@ -114,6 +99,10 @@
                 {
                   "name": "STALE_THRESHOLD",
                   "value": "[parameters('hoursStaleThreshold')]"
+                },
+                {
+                  "name": "SECONDS_BETWEEN_RUNS",
+                  "value": "[parameters('secondsBetweenRuns')]"
                 }
               ]
             }

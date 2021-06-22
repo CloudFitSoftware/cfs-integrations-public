@@ -1,0 +1,128 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cfsBaseUrl": {
+      "type": "string",
+      "defaultValue": "https://api.cloudfitonline.com",
+      "metadata": {
+        "description": "The Base URL of CFS"
+      }
+    },
+    "containerInstanceName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the container instance that will be created to execute this integration"
+      }
+    },
+    "sqlServerName": {
+      "type": "string",
+      "metadata": {
+        "description": "The location of the SQL Server the scripts will be executed on i.e. tcp:ya9rqel5id.database.windows.net"
+      }
+    },
+    "sqlDatabaseName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the SQL Database the scripts will be executed on"
+      }
+    },
+    "sqlUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "A SQL Login username that will execute the sql scripts"
+      }
+    },
+    "sqlPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "A SQL Login password for the specified username"
+      }
+    },
+    "storageAccountUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "The location of the storage account that SQL scripts will be located i.e. https://mystorage.blob.core.windows.net/"
+      }
+    },
+    "storageAccountContainer": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the container inside the storage account that holds all of the blobs (sql files)"
+      }
+    },
+    "secondsBetweenRuns": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "How many seconds to wait between runs"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "name": "[parameters('containerInstanceName')]",
+      "location": "[resourceGroup().location]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "containers": [
+          {
+            "name": "[parameters('containerInstanceName')]",
+            "properties": {
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-sql-data-monitor:latest",
+              "ports": [],
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGB": 1
+                }
+              },
+              "environmentVariables": [
+                {
+                  "name": "CFS_BASE_URL",
+                  "value": "[parameters('cfsBaseUrl')]"
+                },
+                {
+                  "name": "SQL_SERVER",
+                  "value": "[parameters('sqlServerName')]"
+                },
+                {
+                  "name": "SQL_DATABASE",
+                  "value": "[parameters('sqlDatabaseName')]"
+                },
+                {
+                  "name": "SQL_USERNAME",
+                  "value": "[parameters('sqlUsername')]"
+                },
+                {
+                  "name": "SQL_PASSWORD",
+                  "secureValue": "[parameters('sqlPassword')]"
+                },
+                {
+                  "name": "STORAGE_ACCOUNT_URL",
+                  "value": "[parameters('storageAccountUrl')]"
+                },
+                {
+                  "name": "STORAGE_ACCOUNT_CONTAINER",
+                  "value": "[parameters('storageAccountContainer')]"
+                },
+                {
+                  "name": "SECONDS_BETWEEN_RUNS",
+                  "value": "[parameters('secondsBetweenRuns')]"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "Always"
+      }
+    }
+  ],
+  "outputs": {}
+}
