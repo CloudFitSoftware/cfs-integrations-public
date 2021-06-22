@@ -15,10 +15,22 @@
         "description": "The name of the container instance that will be created to execute this integration"
       }
     },
-    "subnetResourceId": {
+    "virtualNetworkResourceGroup": {
       "type": "string",
       "metadata": {
-        "description": "The resource id of the subnet that this container will be deployed to"
+        "description": "The name of the resource group of the subnet that this container will be deployed to"
+      }
+    },
+    "virtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the virtual network this container will be deployed to"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the subnet this container will be deployed to"
       }
     },
     "sqlServerName": {
@@ -67,6 +79,31 @@
   },
   "variables": {},
   "resources": [
+    {
+      "type": "Microsoft.Network/networkProfiles",
+      "apiVersion": "2019-12-01",
+      "name": "[concat(parameters('containerInstanceName'), 'network-profile)]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containerNetworkInterfaceConfigurations": [
+          {
+            "name": "my-cnic",
+            "properties": {
+              "ipConfigurations": [
+                {
+                  "name": "my-ip-config-profile",
+                  "properties": {
+                    "subnet": {
+                      "id": "[parameters('virtualNetworkResourceGroup'), resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
     {
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
