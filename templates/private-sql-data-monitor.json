@@ -94,7 +94,7 @@
                   "name": "my-ip-config-profile",
                   "properties": {
                     "subnet": {
-                      "id": "[parameters('virtualNetworkResourceGroup'), resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+                      "id": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
                     }
                   }
                 }
@@ -121,7 +121,7 @@
           }]
         },
         "networkProfile": {
-          "id": "[parameters('subnetResourceId')]"
+          "id": "[resourceId('Microsoft.Network/networkProfiles', concat(parameters('containerInstanceName'), 'network-profile))]"
         },
         "containers": [
           {
