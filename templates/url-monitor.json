@@ -11,8 +11,16 @@
     },
     "cfsBlockToUrlMapping": {
       "type": "string",
+      "defaultValue": "",
       "metadata": {
         "description": "Mapping of Block Ids and Url's to test (ex. xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com,xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx|https://example.com)"
+      }
+    },
+    "jsonUrlObjects": {
+      "type": "string",
+      "defaultValue": false,
+      "metadata": {
+        "description": "JSON version of the block mapping - see the docs for schema"
       }
     },
     "scenarioName": {
@@ -53,6 +61,10 @@
                 {
                   "name": "CFS_BLOCK_MAPPING",
                   "value": "[parameters('cfsBlockToUrlMapping')]"
+                },
+                {
+                  "name": "JSON_URL_OBJECTS",
+                  "value": "[parameters('jsonUrlObjects')]"
                 },
                 {
                   "name": "CFS_BASE_URL",
