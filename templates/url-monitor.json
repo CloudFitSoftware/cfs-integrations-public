@@ -18,7 +18,7 @@
     },
     "jsonUrlObjects": {
       "type": "string",
-      "defaultValue": false,
+      "defaultValue": "",
       "metadata": {
         "description": "JSON version of the block mapping - see the docs for schema"
       }
