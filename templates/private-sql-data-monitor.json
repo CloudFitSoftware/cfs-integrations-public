@@ -121,7 +121,7 @@
           }]
         },
         "networkProfile": {
-          "id": "[resourceId('Microsoft.Network/networkProfiles', concat(parameters('containerInstanceName'), 'network-profile))]"
+          "id": "[resourceId('Microsoft.Network/networkProfiles', concat(parameters('containerInstanceName'), 'network-profile'))]"
         },
         "containers": [
           {
