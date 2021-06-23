@@ -82,7 +82,7 @@
     {
       "type": "Microsoft.Network/networkProfiles",
       "apiVersion": "2019-12-01",
-      "name": "[concat(parameters('containerInstanceName'), 'network-profile)]",
+      "name": "[concat(parameters('containerInstanceName'), 'network-profile')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "containerNetworkInterfaceConfigurations": [
