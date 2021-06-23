@@ -82,7 +82,7 @@
     {
       "type": "Microsoft.Network/networkProfiles",
       "apiVersion": "2019-12-01",
-      "name": "[concat(parameters('containerInstanceName'), 'network-profile')]",
+      "name": "[concat(parameters('containerInstanceName'), 'network-profile)]",
       "location": "[resourceGroup().location]",
       "properties": {
         "containerNetworkInterfaceConfigurations": [
@@ -115,7 +115,10 @@
       "properties": {
         "ipAddress": {
           "type": "Private",
-          "ports": []
+          "ports": [{
+            "protocol": "TCP",
+            "port": 80
+          }]
         },
         "networkProfile": {
           "id": "[resourceId('Microsoft.Network/networkProfiles', concat(parameters('containerInstanceName'), 'network-profile'))]"
@@ -125,7 +128,10 @@
             "name": "[parameters('containerInstanceName')]",
             "properties": {
               "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-sql-data-monitor:latest",
-              "ports": [],
+              "ports": [{
+                "protocol": "TCP",
+                "port": 80
+              }],
               "resources": {
                 "requests": {
                   "cpu": 1,
