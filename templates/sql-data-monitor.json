@@ -51,6 +51,13 @@
         "description": "The name of the container inside the storage account that holds all of the blobs (sql files)"
       }
     },
+    "storageAccountKey": {
+      "type": "securestring",
+      "defaultValue": "",
+      "metadata": {
+        "description": "(optional) An access key for the storage account that holds the SQL Files"
+      }
+    },
     "secondsBetweenRuns": {
       "type": "int",
       "defaultValue": 30,
@@ -110,6 +117,10 @@
                 {
                   "name": "STORAGE_ACCOUNT_CONTAINER",
                   "value": "[parameters('storageAccountContainer')]"
+                },
+                {
+                  "name": "STORAGE_ACCOUNT_KEY",
+                  "value": "[parameters('storageAccountKey')]"
                 },
                 {
                   "name": "SECONDS_BETWEEN_RUNS",
