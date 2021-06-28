@@ -15,6 +15,24 @@
         "description": "The name of the container instance that will be created to execute this integration"
       }
     },
+    "virtualNetworkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the resource group of the subnet that this container will be deployed to"
+      }
+    },
+    "virtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the virtual network this container will be deployed to"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the subnet this container will be deployed to"
+      }
+    },
     "sqlServerName": {
       "type": "string",
       "metadata": {
@@ -69,6 +87,31 @@
   "variables": {},
   "resources": [
     {
+      "type": "Microsoft.Network/networkProfiles",
+      "apiVersion": "2019-12-01",
+      "name": "[concat(parameters('containerInstanceName'), 'network-profile')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containerNetworkInterfaceConfigurations": [
+          {
+            "name": "my-cnic",
+            "properties": {
+              "ipConfigurations": [
+                {
+                  "name": "my-ip-config-profile",
+                  "properties": {
+                    "subnet": {
+                      "id": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "name": "[parameters('containerInstanceName')]",
@@ -77,12 +120,25 @@
         "type": "SystemAssigned"
       },
       "properties": {
+        "ipAddress": {
+          "type": "Private",
+          "ports": [{
+            "protocol": "TCP",
+            "port": 80
+          }]
+        },
+        "networkProfile": {
+          "id": "[resourceId('Microsoft.Network/networkProfiles', concat(parameters('containerInstanceName'), 'network-profile'))]"
+        },
         "containers": [
           {
             "name": "[parameters('containerInstanceName')]",
             "properties": {
               "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-sql-data-monitor:latest",
-              "ports": [],
+              "ports": [{
+                "protocol": "TCP",
+                "port": 80
+              }],
               "resources": {
                 "requests": {
                   "cpu": 1,
