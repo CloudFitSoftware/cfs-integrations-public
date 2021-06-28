@@ -21,11 +21,18 @@
         "description": "Enter a short name to describe the managed scenario"
       }
     },
-    "secondsBetweenRuns": {
+    "defaultSecondsBetweenRuns": {
       "type": "int",
       "defaultValue": 30,
       "metadata": {
-        "description": "How many seconds to wait between runs"
+        "description": "How many seconds to wait between runs if not configured per item"
+      }
+    },
+    "defaultRequestTimeout": {
+      "type": "int",
+      "defaultValue": 10,
+      "metadata": {
+        "description": "How long to wait for a request to finish if not configured per item"
       }
     }
   },
@@ -59,8 +66,12 @@
                   "value": "[parameters('cfsBaseUrl')]"
                 },
                 {
-                  "name": "SECONDS_BETWEEN_RUNS",
-                  "value": "[parameters('secondsBetweenRuns')]"
+                  "name": "DEFAULT_SECONDS_BETWEEN_RUNS",
+                  "value": "[parameters('defaultSecondsBetweenRuns')]"
+                },
+                {
+                  "name": "DEFAULT_PING_REQUEST_TIMEOUT",
+                  "value": "[parameters('defaultRequestTimeout')]"
                 }
               ]
             }
