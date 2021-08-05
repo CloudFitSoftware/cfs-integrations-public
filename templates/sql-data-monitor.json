@@ -69,7 +69,7 @@
       "type": "int",
       "defaultValue": 0,
       "metadata": {
-        "description": "How many rows returned will trigger an error"
+        "description": "Rows exceeding this value will be considered an error"
       }
     }
   },
