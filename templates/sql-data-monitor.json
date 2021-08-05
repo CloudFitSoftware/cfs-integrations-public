@@ -64,6 +64,13 @@
       "metadata": {
         "description": "How many seconds to wait between runs"
       }
+    },
+    "errorCountRows": {
+      "type": "int",
+      "defaultValue": 0,
+      "metadata": {
+        "description": "How many rows returned will trigger an error"
+      }
     }
   },
   "variables": {},
@@ -125,6 +132,10 @@
                 {
                   "name": "SECONDS_BETWEEN_RUNS",
                   "value": "[parameters('secondsBetweenRuns')]"
+                },
+                {
+                  "name": "ERROR_COUNT_ROWS",
+                  "value": "[parameters('errorCountRows')]"
                 }
               ]
             }
