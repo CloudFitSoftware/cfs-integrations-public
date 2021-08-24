@@ -44,6 +44,7 @@
     },
     "exclusions": {
       "type": "string",
+      "defaultValue": "",
       "metadata": {
         "description": "A comma separated list of operation names that should be excluded from the query"
       }
