@@ -1,0 +1,120 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cfsBaseUrl": {
+      "type": "string",
+      "defaultValue": "https://api.cloudfitonline.com",
+      "metadata": {
+        "description": "The Base URL of CFS"
+      }
+    },
+    "containerInstanceName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the container instance that will be created to execute this integration"
+      }
+    },
+    "instances": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Configuration of application insights instances to query"
+      }
+    },
+    "minutesBetweenRuns": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "How many minutes to wait between runs"
+      }
+    },
+    "queryMinutes": {
+      "type": "int",
+      "defaultValue": 60,
+      "metadata": {
+        "description": "How far back application insights should be queried for errors"
+      }
+    },
+    "errorThreshold": {
+      "type": "int",
+      "defaultValue": 50,
+      "metadata": {
+        "description": "How many times a single endpoint can fail before reporting failures"
+      }
+    },
+    "exclusions": {
+      "type": "string",
+      "metadata": {
+        "description": "A comma separated list of operation names that should be excluded from the query"
+      }
+    },
+    "queryOnName": {
+      "type": "string",
+      "metadata": {
+        "description": "Which field in Application Insights should be queried against. To use a custom dimension, use something like tostring(customDimensions.MethodName)"
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "name": "[parameters('containerInstanceName')]",
+      "location": "[resourceGroup().location]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "containers": [
+          {
+            "name": "[parameters('containerInstanceName')]",
+            "properties": {
+              "image": "harbor.cloudfitonline.com/cfsintegrations/cfs-requests-failure-monitor:latest",
+              "ports": [],
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGB": 1
+                }
+              },
+              "environmentVariables": [
+                {
+                  "name": "CFS_BASE_URL",
+                  "value": "[parameters('cfsBaseUrl')]"
+                },
+                {
+                  "name": "MINUTES_BETWEEN_RUNS",
+                  "value": "[parameters('minutesBetweenRuns')]"
+                },
+                {
+                  "name": "ENDPOINT_EXCLUSIONS",
+                  "value": "[parameters('exclusions')]"
+                },
+                {
+                  "name": "ERROR_THRESHOLD",
+                  "value": "[parameters('errorThreshold')]"
+                },
+                {
+                  "name": "QUERY_MINUTES",
+                  "value": "[parameters('queryMinutes')]"
+                },
+                {
+                  "name": "INSTANCES",
+                  "secureValue": "[parameters('instances')]"
+                },
+                {
+                  "name": "QUERY_ON_NAME",
+                  "secureValue": "[parameters('queryOnName')]"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "Always"
+      }
+    }
+  ],
+  "outputs": {}
+}
