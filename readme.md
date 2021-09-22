@@ -2,6 +2,10 @@
 
 A CFS integration is a "plug and play" piece of code that can be easily deployed into a customer environment and send updates to CFS.
 
+## Deploy Kube Instance
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCloudFitSoftware%2Fcfs-integrations-public%2Fmaster%2Fkube-templates%2Fdeploy-kubernetes.json)
+
 ## Deployment Steps
 
 1. Create a block in CFS
@@ -42,4 +46,4 @@ Runs SQL Scripts that query for bad data
 
 ### Azure Data Factory (ADF) Pipeline Monitor | [Go To Repo](https://github.com/CloudFitSoftware/cfs-adf-monitor)
 
-Monitors pipeline ensuring pipeline ran successfully in the predetermined time frame. 
+Monitors pipeline ensuring pipeline ran successfully in the predetermined time frame.
