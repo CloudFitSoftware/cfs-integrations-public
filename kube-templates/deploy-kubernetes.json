@@ -11,7 +11,7 @@
   "parameters": {
     "clusterName": {
       "type": "string",
-      "defaultValue": "aks101cluster",
+      "defaultValue": "cfs-inputs",
       "metadata": {
         "description": "The name of the Managed Cluster resource."
       }
@@ -21,12 +21,6 @@
       "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "The location of the Managed Cluster resource."
-      }
-    },
-    "dnsPrefix": {
-      "type": "string",
-      "metadata": {
-        "description": "Optional DNS prefix to use with hosted Kubernetes API server FQDN."
       }
     },
     "osDiskSizeGB": {
@@ -78,7 +72,6 @@
         "type": "SystemAssigned"
       },
       "properties": {
-        "dnsPrefix": "[parameters('dnsPrefix')]",
         "agentPoolProfiles": [
           {
             "name": "agentpool",
