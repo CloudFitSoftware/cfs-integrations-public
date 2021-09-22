@@ -23,6 +23,12 @@
         "description": "The location of the Managed Cluster resource."
       }
     },
+    "dnsPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Required DNS prefix to use with hosted Kubernetes API server FQDN."
+      }
+    },
     "osDiskSizeGB": {
       "type": "int",
       "defaultValue": 0,
@@ -72,6 +78,7 @@
         "type": "SystemAssigned"
       },
       "properties": {
+        "dnsPrefix": "[parameters('dnsPrefix')]",
         "agentPoolProfiles": [
           {
             "name": "agentpool",
