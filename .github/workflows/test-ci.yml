@@ -3,9 +3,36 @@ name: Test CI
 on: push
 
 jobs:
-  release:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: "Test Scripts"
+      - name: "Building App"
         run: |
-          echo "hello world"
+          echo "Building App"
+
+  deploy-dev:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    needs: build-and-publish
+    steps:
+      - name: "Deploy Dev"
+        run: |
+          echo "Deploying Dev"
+
+  deploy-test:
+    runs-on: 'ubuntu-latest'
+    environment: 'test'
+    needs: [build-and-publish, deploy-dev]
+    steps:
+      - name: "Deploy Test"
+        run: |
+          echo "Deploying Test"
+
+  deploy-prod:
+    runs-on: 'ubuntu-latest'
+    environment: 'prod'
+    needs: [build-and-publish, deploy-dev, deploy-test]
+    steps:
+      - name: "Deploy Prod"
+        run: |
+          echo "Deploying Prod"
